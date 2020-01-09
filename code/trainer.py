@@ -21,7 +21,7 @@ from miscc.utils import KL_loss
 from miscc.utils import compute_discriminator_loss, compute_generator_loss
 
 from tensorboard import summary
-from tensorboard import FileWriter
+from tensorboardX import FileWriter
 
 
 class GANTrainer(object):
@@ -239,7 +239,7 @@ class GANTrainer(object):
         netG.eval()
 
         # Load text embeddings generated from the encoder
-        t_file = torchfile.load(datapath)
+        t_file = torchfile.load(datapath, force_8bytes_long=True)
         captions_list = t_file.raw_txt
         embeddings = np.concatenate(t_file.fea_txt, axis=0)
         num_embeddings = len(captions_list)
